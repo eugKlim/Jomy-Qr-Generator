@@ -37,7 +37,7 @@
 
 <br>
 
-[🔗 Ссылка на сайт](qr-generators1.vercel.app) 
+[🔗 Ссылка на сайт](https://qr-generators1.vercel.app/home) 
 
 
 <br>
