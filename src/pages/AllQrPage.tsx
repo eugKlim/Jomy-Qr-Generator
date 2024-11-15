@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import GenerateQr from '../components/GenerateQr.tsx';
+import { DownloadImage } from '../Utils/DownloadImage.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getQrHistoryStorage,
@@ -16,6 +17,18 @@ const AllQrPage = () => {
   useEffect(() => {
     setIsLoading(false);
   }, []);
+
+  // for download qr
+  const qrRef = useRef<HTMLDivElement | null>(null);
+  const handleDownloadImage = (format: 'svg' | 'png') => {
+    if (qrRef.current) {
+      const svgElement = qrRef.current.querySelector('svg');
+      if (svgElement) {
+        DownloadImage(svgElement, format);
+      }
+    }
+  };
+  // /
 
   // getQr from localStorage
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +56,9 @@ const AllQrPage = () => {
                 className="inline-block p-4 rounded-2xl w-96 bgGradient"
                 key={index}
               >
-                <GenerateQr value={item} />
+                <div ref={qrRef}>
+                  <GenerateQr value={item} />
+                </div>
 
                 <h2 className="font-bold whitespace-nowrap overflow-hidden text-ellipsis my-8 text-left uppercase text-gray-400">
                   Ссылка:{' '}
@@ -53,6 +68,27 @@ const AllQrPage = () => {
                 </h2>
 
                 <div className="flex flex-col space-y-5">
+                  <ButtonComponent1
+                    event={() => handleDownloadImage('png')}
+                    startColor={'rgba(0, 206, 209, 0.7)'}
+                    endColor={'rgba(255, 165, 0, 0.3)'}
+                  >
+                    Download PNG
+                    <span className="p-3 rounded-full bg-rose-900 shadow-custom2">
+                      <img src="image/png-icon.svg" alt="png ico" />
+                    </span>
+                  </ButtonComponent1>
+                  <ButtonComponent1
+                    event={() => handleDownloadImage('svg')}
+                    startColor={'rgba(255, 0, 255, 0.7)'}
+                    endColor={'rgba(255, 165, 0, 0.3)'}
+                  >
+                    Download SVG
+                    <span className="p-3 rounded-full bg-white shadow-custom2">
+                      <img src="image/svg-icon.svg" alt="svg ico" />
+                    </span>
+                  </ButtonComponent1>
+
                   <div className="pt-8">
                     <ButtonComponent2 event={() => deleteQr(item)}>
                       DELETE

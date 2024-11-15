@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import GenerateQr from '../components/GenerateQr';
 import { useNavigate } from 'react-router-dom';
+import { DownloadImage } from '../Utils/DownloadImage.tsx';
 import ButtonComponent1 from '../components/button-components/ButtonComponent1.tsx';
 import { useDispatch } from 'react-redux';
 import { setNewQrInStorage, setInputValue } from '../components/QrSlice';
@@ -16,11 +17,26 @@ const GetQrPage = () => {
     dispatch(setNewQrInStorage(getUserText));
   });
 
+  // for download qr
+  const qrRef = useRef<HTMLDivElement | null>(null);
+
+  const handleDownloadImage = (format: 'svg' | 'png') => {
+    if (qrRef.current) {
+      const svgElement = qrRef.current.querySelector('svg');
+      if (svgElement) {
+        DownloadImage(svgElement, format);
+      }
+    }
+  };
+  // /
+
   return (
     <div className="bg-dark centerBlock py-20">
       <div className="bg-purple-900 sm:p-3 md:p-9 rounded-2xl sm:w-full md:w-[400px]">
         {getUserText != null && getUserText.length != 0 ? (
-          <GenerateQr value={getUserText} />
+          <div ref={qrRef}>
+            <GenerateQr value={getUserText} />
+          </div>
         ) : (
           <img
             src="image/noQr.gif"
@@ -97,6 +113,26 @@ const GetQrPage = () => {
                   <path d="m6 17 5-5-5-5" />
                   <path d="m13 17 5-5-5-5" />
                 </svg>
+              </ButtonComponent1>
+              <ButtonComponent1
+                event={() => handleDownloadImage('png')}
+                startColor={'rgba(0, 206, 209, 0.7)'}
+                endColor={'rgba(255, 165, 0, 0.3)'}
+              >
+                Download PNG
+                <span className="p-3 rounded-full bg-rose-900 shadow-custom2">
+                  <img src="image/png-icon.svg" alt="png ico" />
+                </span>
+              </ButtonComponent1>
+              <ButtonComponent1
+                event={() => handleDownloadImage('svg')}
+                startColor={'rgba(255, 0, 255, 0.7)'}
+                endColor={'rgba(255, 165, 0, 0.3)'}
+              >
+                Download SVG
+                <span className="p-3 rounded-full bg-white shadow-custom2">
+                  <img src="image/svg-icon.svg" alt="svg ico" />
+                </span>
               </ButtonComponent1>
             </>
           ) : (

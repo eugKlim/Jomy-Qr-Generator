@@ -20,9 +20,11 @@ import ErrorPage from './pages/ErrorPage.tsx';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getQrHistoryStorage());
   }, []);
+
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] font-RalewayRegular bg-homeBg">
       <Router>

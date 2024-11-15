@@ -8,6 +8,7 @@ const GetQrUrl = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { inputValue } = useSelector((state: RootState) => state.qrSlice);
+
   useEffect(() => {
     sessionStorage.setItem('textInput', inputValue);
   }, [inputValue]);
@@ -17,32 +18,57 @@ const GetQrUrl = () => {
       <div className="w-full">
         <input
           type="text"
-          className="p-5 rounded-xl w-4/5 mb-4 shadow-custom bg-white text-black text-xl"
-          placeholder="URL"
           onChange={(e) => dispatch(setInputValue(e.target.value))}
           value={inputValue}
+          className="p-5 rounded-xl w-4/5 mb-4 shadow-custom bg-white text-black text-xl"
+          placeholder="URL"
         />
 
-        <button
-          className="bg-green-700 uppercase flex items-center py-5 px-14 font-bold rounded-xl m-auto shadow-custom hover:bg-green-900 group"
-          onClick={() => navigate('/getQr')}
-        >
-          Сгенерировать QR
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="ml-4 group-hover:text-emerald-400 group-hover:translate-x-4 transition-all"
+        {inputValue.length !== 0 ? (
+          <button
+            className="bg-green-700 uppercase flex items-center py-5 px-14 font-bold rounded-xl m-auto shadow-custom hover:bg-green-900 group"
+            onClick={() => navigate('/getQr')}
           >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </button>
+            Сгенерировать QR
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="ml-4 group-hover:text-emerald-400 group-hover:translate-x-4 transition-all"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            className="bg-rose-600 opacity-45  cursor-not-allowed uppercase flex items-center py-5 px-14 font-bold rounded-xl m-auto shadow-custom"
+            disabled
+          >
+            Введите url{' '}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="ml-4"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="m15 9-6 6" />
+              <path d="m9 9 6 6" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
