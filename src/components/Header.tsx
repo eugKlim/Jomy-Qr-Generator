@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInputValue } from './QrSlice.tsx';
+import { AppDispatch, RootState } from './Store.tsx';
 
 const NavItem = styled.li`
   cursor: pointer;
@@ -37,12 +40,16 @@ const HeaderStyle = styled.header`
 
 const Header = () => {
   const navigate = useNavigate();
+  const { qrHistoryCounter } = useSelector((state: RootState) => state.qrSlice);
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <HeaderStyle className="w-full px-6 py-2 bg-sky-700 bg-opacity-95 flex justify-between items-center flex-wrap">
       <h1
         className="text-2xl font-KaushanScripts uppercase italic text-shadow-custom cursor-pointer"
         onClick={() => {
           navigate('/home');
+          dispatch(setInputValue(''));
         }}
       >
         <span className="text-rose-600 font-bold">Qr</span>Generator
@@ -50,7 +57,10 @@ const Header = () => {
 
       <nav className="sm:block sm:w-full sm:mt-4 md:w-auto md:mt-0">
         <ul className="sm:inline-flex md:flex md:items-center space-x-6 uppercase tracking-widest">
-          <NavItem className="header-link">
+          <NavItem
+            className="header-link"
+            onClick={() => dispatch(setInputValue(''))}
+          >
             <NavLink to={'/home'} className="activeNav">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +104,7 @@ const Header = () => {
               </svg>
               История
               <span className="bg-orange-600 py-1 px-2 rounded-full -mt-10 inline-block absolute bottom-10 right-8">
-                0
+                {qrHistoryCounter}
               </span>
             </NavLink>
           </NavItem>

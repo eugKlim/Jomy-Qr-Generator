@@ -3,7 +3,7 @@ import GenerateQr from '../components/GenerateQr';
 import { useNavigate } from 'react-router-dom';
 import ButtonComponent1 from '../components/button-components/ButtonComponent1.tsx';
 import { useDispatch } from 'react-redux';
-import { setInputValue } from '../components/QrSlice';
+import { setNewQrInStorage, setInputValue } from '../components/QrSlice';
 import { AppDispatch } from '../components/Store';
 
 const GetQrPage = () => {
@@ -13,15 +13,14 @@ const GetQrPage = () => {
 
   useEffect(() => {
     dispatch(setInputValue(getUserText));
+    dispatch(setNewQrInStorage(getUserText));
   });
 
   return (
     <div className="bg-dark centerBlock py-20">
       <div className="bg-purple-900 sm:p-3 md:p-9 rounded-2xl sm:w-full md:w-[400px]">
         {getUserText != null && getUserText.length != 0 ? (
-          
-            <GenerateQr value={getUserText} />
-         
+          <GenerateQr value={getUserText} />
         ) : (
           <img
             src="image/noQr.gif"

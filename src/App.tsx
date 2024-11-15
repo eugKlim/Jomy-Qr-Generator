@@ -1,5 +1,5 @@
 import './scss/style.scss';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,6 +7,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { getQrHistoryStorage } from './components/QrSlice';
 
 import Footer from './components/Footer.tsx';
 import Header from './components/Header.tsx';
@@ -19,11 +20,12 @@ import ErrorPage from './pages/ErrorPage.tsx';
 
 function App() {
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(getQrHistoryStorage());
+  }, []);
   return (
     <div className="h-screen grid grid-rows-[auto_1fr_auto] font-RalewayRegular bg-homeBg">
       <Router>
-        {/* <Router basename={import.meta.env.BASE_URL}> */}
         <ScrollToTop />
         <Header />
         <Suspense
