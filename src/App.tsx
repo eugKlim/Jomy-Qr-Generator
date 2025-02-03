@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getQrHistoryStorage } from './components/QrSlice';
+import { HelmetProvider } from 'react-helmet-async';
 
 import Footer from './components/Footer.tsx';
 import Header from './components/Header.tsx';
@@ -26,29 +27,31 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen grid grid-rows-[auto_1fr_auto] font-RalewayRegular bg-homeBg">
-      <Router>
-        <ScrollToTop />
-        <Header />
-        <Suspense
-          fallback={
-            <div className="loading-gif">
-              <img src="image/loading.gif" alt="Loading..." />
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/allSaveQr" element={<AllQrPage />} />
-            <Route path="/getQr" element={<GetQrPage />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
+    <HelmetProvider>
+      <div className="h-screen grid grid-rows-[auto_1fr_auto] font-RalewayRegular bg-homeBg">
+        <Router>
+          <ScrollToTop />
+          <Header />
+          <Suspense
+            fallback={
+              <div className="loading-gif">
+                <img src="image/loading.gif" alt="Loading..." />
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/allSaveQr" element={<AllQrPage />} />
+              <Route path="/getQr" element={<GetQrPage />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
 
-          <Footer />
-        </Suspense>
-      </Router>
-    </div>
+            <Footer />
+          </Suspense>
+        </Router>
+      </div>
+    </HelmetProvider>
   );
 }
 

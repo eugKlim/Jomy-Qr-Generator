@@ -45,15 +45,15 @@ const Header = () => {
 
   return (
     <HeaderStyle className="w-full px-6 py-2 bg-sky-700 bg-opacity-95 flex justify-between items-center flex-wrap">
-      <h1
+      <h2
         className="text-2xl font-KaushanScripts uppercase italic text-shadow-custom cursor-pointer"
         onClick={() => {
           navigate('/home');
           dispatch(setInputValue(''));
         }}
       >
-        <span className="text-rose-600 font-bold">Qr</span>Generator
-      </h1>
+        <span className="text-rose-600 font-bold">JOMY Qr</span>Generator
+      </h2>
 
       <nav className="sm:block sm:w-full sm:mt-4 md:w-auto md:mt-0">
         <ul className="sm:inline-flex md:flex md:items-center space-x-6 uppercase tracking-widest">

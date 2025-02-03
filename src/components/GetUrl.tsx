@@ -16,6 +16,14 @@ const GetQrUrl = () => {
   return (
     <div className="min-w-80 xl:w-2/5 md:w-4/5 sm:w-full min-h-96 bg-orange-500 text-center relative left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 centerBlock rounded-3xl bgGradient">
       <div className="w-full">
+        <div className="mb-7 px-8">
+          <h1 className="font-bold text-2xl">Генератор QR-кодов онлайн</h1>
+          <p className="mt-2 text-md leading-6">
+            Введите текст, ссылку, номер телефона или Wi-Fi данные и нажмите
+            «Сгенерировать qr». Готовый QR-код можно скачать в PNG или SVG.
+          </p>
+        </div>
+
         <input
           type="text"
           onChange={(e) => dispatch(setInputValue(e.target.value))}
