@@ -3,7 +3,7 @@ import { writeFile } from 'fs/promises';
 
 async function generateSitemap() {
   const sitemap = new SitemapStream({
-    hostname: 'https://qr-generators1.vercel.app',
+    hostname: 'https://jomy-qr-generator.vercel.app',
   });
 
   const pages = ['/home', '/allSaveQr'];
