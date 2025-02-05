@@ -6,7 +6,7 @@ async function generateSitemap() {
     hostname: 'https://jomy-qr-generator.vercel.app',
   });
 
-  const pages = ['/home', '/allSaveQr'];
+  const pages = ['/', '/home', '/allSaveQr'];
 
   pages.forEach((page) => {
     sitemap.write({ url: page, changefreq: 'daily', priority: 0.8 });
