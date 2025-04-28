@@ -2,13 +2,11 @@
 
 **На чем написано:**
 
-- React
-- Redux toolkit
+- React/React Helmet
 - TypeScript
 - Tailwind
 - Styled-components
-- React Helmet
-
+- Redux toolkit (на самом деле тут уместнее было использовать context api, но для демонстрации навыка, решил rtk использовать).
 <br>
 
 # Что реализовано в приложении?
